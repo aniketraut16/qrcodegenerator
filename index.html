@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Generator</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <style>
+      .container1 {
+        height: 100vh;
+        width: 100%;
+        color: white;
+        background: url("img/bg.jpg");
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      h1 {
+        text-align: center;
+        padding: 1em 0em;
+      }
+      .container {
+        display: flex;
+        width: 90%;
+        align-items: center;
+        justify-content: space-evenly;
+      }
+      .imgdiv {
+        display: none;
+        border-radius: 25px;
+        background-color: rgba(128, 128, 128, 0.495);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40%;
+        height: 0px;
+        transition: all 1s ease-in-out;
+      }
+      .qrdis {
+        height: 200px;
+      }
+      .container {
+        justify-content: center;
+      }
+      .inputbox {
+        background-color: rgba(128, 128, 128, 0.495);
+        border-radius: 25px;
+        border: 1px solid black;
+        padding: 2em;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+      }
+      #submitbtn {
+        margin-top: 2em;
+      }
+      #reload {
+        display: none;
+        margin: 10px auto;
+        transition: all 1s ease-in-out;
+      }
+      @media screen and (max-width: 600px) {
+        .container {
+          flex-direction: column;
+        }
+        .imgdiv {
+          display: none;
+          margin-top: 1em;
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container1">
+      <h1>QR Code Generator</h1>
+      <div class="container">
+        <div class="inputbox">
+          <label for="imgurl" class="form-label">Enter url:</label>
+          <input
+            class="form-control"
+            id="imgurl"
+            placeholder="www.url.com"
+            type="text"
+          />
+          <button type="button" class="btn btn-primary" id="submitbtn">
+            Submit
+          </button>
+        </div>
+
+        <div class="imgdiv"></div>
+      </div>
+      <button type="button" class="btn btn-primary" id="reload">
+        Try another url!
+      </button>
+    </div>
+    <div class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div
+            class="modal-header"
+            style="
+              background-color: rgba(218, 56, 56, 0.888);
+              border-bottom: 0px;
+              color: white;
+            "
+          >
+            <h5 class="modal-title">Invalid Url!!</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const url = document.getElementById("imgurl");
+      const submitbtn = document.getElementById("submitbtn");
+      const imgdiv = document.querySelector(".imgdiv");
+      const styletag = document.querySelector("style");
+      const modalbox = document.querySelector(".modal");
+      const modalbutton = document.querySelector(".btn-close");
+      const reloadbtn = document.querySelector("#reload");
+      reloadbtn.addEventListener("click", () => {
+        location.reload();
+      });
+      submitbtn.addEventListener("click", () => {
+        console.log(url.value);
+        if (url.value === "") {
+          modalbox.style.display = "block";
+          modalbutton.addEventListener("click", () => {
+            modalbox.style.display = "none";
+          });
+        } else {
+          imgdiv.style.display = "flex";
+          imgdiv.classList.add("qrdis");
+          const spinnerelement = `<span id="spinner"><div class="spinner-border" role="status" id="spinner">
+          <span class="visually-hidden">Loading...</span>
+        </div> </span>`;
+          imgdiv.insertAdjacentHTML("beforeend", spinnerelement);
+
+          const imgtag = `<img src="https://api.qrserver.com/v1/create-qr-code/?data=${url.value}&amp;size=150x150" alt="" title="" />"`;
+          imgdiv.insertAdjacentHTML("beforeend", imgtag);
+          const imgElement = imgdiv.querySelector("img");
+          imgElement.onload = function () {
+            const spindisplay = ` #spinner{
+                display:none !important;
+            }`;
+            styletag.insertAdjacentHTML("beforeend", spindisplay);
+            reloadbtn.style.display = "block";
+          };
+        }
+      });
+    </script>
+  </body>
+</html>
