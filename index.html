@@ -11,76 +11,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <style>
-      .container1 {
-        height: 100vh;
-        width: 100%;
-        color: white;
-        background: url("img/bg.jpg");
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-      h1 {
-        text-align: center;
-        padding: 1em 0em;
-      }
-      .container {
-        display: flex;
-        width: 90%;
-        align-items: center;
-        justify-content: space-evenly;
-      }
-      .imgdiv {
-        display: none;
-        border-radius: 25px;
-        background-color: rgba(128, 128, 128, 0.495);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40%;
-        height: 0px;
-        transition: all 1s ease-in-out;
-      }
-      .qrdis {
-        height: 200px;
-      }
-      .container {
-        justify-content: center;
-      }
-      .inputbox {
-        background-color: rgba(128, 128, 128, 0.495);
-        border-radius: 25px;
-        border: 1px solid black;
-        padding: 2em;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-      }
-      #submitbtn {
-        margin-top: 2em;
-      }
-      p {
-        margin-top: 25px;
-      }
-      #reload {
-        display: none;
-        margin: 10px auto;
-        transition: all 1s ease-in-out;
-      }
-      @media screen and (max-width: 600px) {
-        .container {
-          flex-direction: column;
-        }
-        .imgdiv {
-          overflow: scroll;
-          display: none;
-          flex-direction: column;
-          margin-top: 1em;
-          width: 90%;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container1">
@@ -127,52 +58,6 @@
         </div>
       </div>
     </div>
-    <script>
-      function isValidURL(url) {
-        const urlPattern =
-          /^(?:(?:https?|ftp):\/\/)?(?:\S+(?::\S*)?@)?(?:[a-zA-Z0-9.-]+)(?::\d{1,5})?(?:\/\S*)?(?:\?(?:[a-zA-Z0-9-._~%]+=(?:[a-zA-Z0-9-._~%]+)?(?:&[a-zA-Z0-9-._~%]+=(?:[a-zA-Z0-9-._~%]+)?)*)?)?(?:#[a-zA-Z0-9-._~%!$&'()*+,;=:@-]*)?(?:\.(?:com|net|edu)|\.\S+)$/;
-        return urlPattern.test(url);
-      }
-      const url = document.getElementById("imgurl");
-      const submitbtn = document.getElementById("submitbtn");
-      const imgdiv = document.querySelector(".imgdiv");
-      const styletag = document.querySelector("style");
-      const modalbox = document.querySelector(".modal");
-      const modalbutton = document.querySelector(".btn-close");
-      const reloadbtn = document.querySelector("#reload");
-      reloadbtn.addEventListener("click", () => {
-        location.reload();
-      });
-      submitbtn.addEventListener("click", () => {
-        console.log(url.value);
-        if (url.value === "" || !isValidURL(url.value)) {
-          modalbox.style.display = "block";
-          modalbutton.addEventListener("click", () => {
-            modalbox.style.display = "none";
-          });
-        } else {
-          console.log(url);
-          imgdiv.style.display = "flex";
-          imgdiv.classList.add("qrdis");
-          const spinnerelement = `<span id="spinner"><div class="spinner-border" role="status" id="spinner">
-          <span class="visually-hidden">Loading...</span>
-        </div> </span>`;
-          imgdiv.insertAdjacentHTML("beforeend", spinnerelement);
-
-          const imgtag = ` <p>QR Code Generated for ${url.value}</p>
-          <img src="https://api.qrserver.com/v1/create-qr-code/?data=${url.value}&amp;size=150x150" alt="" title="" />"
-          `;
-          imgdiv.insertAdjacentHTML("beforeend", imgtag);
-          const imgElement = imgdiv.querySelector("img");
-          imgElement.onload = function () {
-            const spindisplay = ` #spinner{
-                display:none !important;
-            }`;
-            styletag.insertAdjacentHTML("beforeend", spindisplay);
-            reloadbtn.style.display = "block";
-          };
-        }
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>

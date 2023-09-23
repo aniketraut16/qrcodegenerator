@@ -1,0 +1,79 @@
+.container1 {
+    height: 100vh;
+    width: 100%;
+    color: white;
+    background: url("img/bg.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1 {
+    text-align: center;
+    padding: 1em 0em;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.imgdiv {
+    display: none;
+    border-radius: 25px;
+    background-color: rgba(128, 128, 128, 0.495);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 0px;
+    transition: all 1s ease-in-out;
+}
+
+.qrdis {
+    height: 200px;
+}
+
+.container {
+    justify-content: center;
+}
+
+.inputbox {
+    background-color: rgba(128, 128, 128, 0.495);
+    border-radius: 25px;
+    border: 1px solid black;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#submitbtn {
+    margin-top: 2em;
+}
+
+p {
+    margin-top: 25px;
+}
+
+#reload {
+    display: none;
+    margin: 10px auto;
+    transition: all 1s ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .imgdiv {
+        overflow: scroll;
+        display: none;
+        flex-direction: column;
+        margin-top: 1em;
+        width: 90%;
+    }
+}
