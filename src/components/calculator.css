@@ -1,0 +1,37 @@
+.inputDisplay {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    width: 60%;
+    margin: 2% auto;
+}
+
+.signDisplay {
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+    width: 60%;
+    margin: 5% auto;
+}
+
+.signbtn {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+}
+
+.totOp {
+    margin: 5% auto;
+    text-align: center;
+}
+
+.resultCont {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.resultCont button {
+    width: 15%;
+    height: 40px;
+}
